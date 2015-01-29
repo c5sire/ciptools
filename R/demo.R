@@ -1,6 +1,6 @@
-#' @name  demo
+#' demo
 #' 
-#' @description A dummy demo function
+#' A dummy demo function
 #' 
 #' @author Reinhard SImon
 #' @example /inst/examples/demo.R
