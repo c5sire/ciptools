@@ -1,0 +1,12 @@
+Package: ciptools
+Type: Package
+Title: What the package does (short line)
+Version: 0.0.1
+Date: 2015-01-29
+Author: Reinhard Simon
+Maintainer: Reinhard Simon <R.SIMON@CGIAR.ORG>
+Description: More about what it does (maybe more than one line)
+License: MIT + file LICENSE
+Suggests: devtools, testthat,
+    knitr
+VignetteBuilder: knitr
