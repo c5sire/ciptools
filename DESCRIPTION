@@ -1,6 +1,6 @@
 Package: ciptools
 Type: Package
-Title: What the package does (short line)
+Title: ciptootls
 Version: 0.0.1
 Date: 2015-01-29
 Author: Reinhard Simon
@@ -10,4 +10,3 @@ License: MIT + file LICENSE
 Suggests: devtools, testthat,
     knitr
 VignetteBuilder: knitr
-
