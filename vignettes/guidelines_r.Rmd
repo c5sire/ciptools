@@ -1,0 +1,143 @@
+---
+title: "R Coding Best Practices for use at CIP"
+author: "Reinhard Simon"
+date: "Wednesday, January 28, 2015"
+output: html_document
+---
+
+# Notes
+The following is based on best practice documents mainly from
+Hadley Wickham but complemented with a few ideas. A particular point of confusion is naming in R which consists of mixture of camelcase or names with words separated by underscore. Since the latter is the standard in GNU and R is a GNU project we adhere in case of doubt to GNU best practices.
+
+# Principles
+- [Principles of Good Programming](http://www.artima.com/weblogs/viewpost.jsp?thread=331531)
+- Consistency
+- Conform to community standards and tools (Particular R package guidelines and tools as well as guidelines from Bioconductor - see below)
+- Reproducibility
+- Frequent checks - favor test driven development
+- Automation
+- Test driven development should be favored.
+- All source code and comments are intellectual property of CIP.
+- Software and source code are made available under an open source
+  license (compatible with R set of accepted licenses; currently MIT 
+  license).
+
+# Code organization
+
+1. R code should be organized in packages
+2. Package structure follows R package guidelines
+3. One file per user visible function
+4. Aim at 25-30 lines per function
+5. The R directory for packages does not allow sub-directories; so, all code files need to go in this directory. Grouping files may be achieve through shared prefixes.
+
+# Coding environment
+
+1. The standard IDE for R at CIP is RStudio.
+2. Editor standard formatting options should be adhered to. Particularly,
+   line length should be 80 characters and indentation be set to two space
+   characters.
+3. The standard documentation is to be created in roxygen2 format.
+4. The standard source code management tool is git.
+5. Source code is hosted on github.
+6. For vignettes knitr is to be used.
+7. For formatting consistency source code should be formmatted by formatR.
+8. Issues are tracked on github.
+9. All packages must have tests (using testthat).
+10. Use the devtools package for facilitating the installation of additional coding support tools.
+11. Continuous integration online services are used (travis-ci and
+    AppVeyor)
+
+# Package development workflow  
+
+1. For a fresh package start with creating an empty package on github. Choose a unique name (check CRAN and bioconductor sites for name conflicts). The package name must be in English and all lowercase with only alphanumeric characters. Choose 'R' in gitignore, create a Readme.md file and add a MIT license.
+2. From RStudio create a package from github using the URL
+  2.1. Use devtools::use_travis() to prepare for continuous integration
+  2.2. Use devtools::use_testthat() to prepare testing infrastructure
+  2.3. Use devtolls::use_vignette("my_name")
+  2.4. Enable automated creation of man files via roxygen2 in RStudio options
+  2.5. Set Sweave to use knitr in RStudio options
+3. Edit the DESCRIPTION file according to R CRAN instructions
+4. Add tests using testthat.
+  4.1. Add features on github 
+  4.2. Use auto_test feature by opening a separate R instance and point auto_test to the current package in progress.
+5. Add code.
+5.1. Each function must have a corresponding working example of usage (best under a separate inst/examples directory).
+5.2. Profile code.
+6. Use atomic git commits. Add meaningful comments to commit messages and add references to git issues using github key words like 'closes'.
+6. Add documentation to source code files in roxygen2 format while complying with R package development guidelines.
+6.1 Use formatR package for correct formatting; paramters: indent=2 and arrow=TRUE; that is: formatR::tidy_dir("R", indent=2, arrow=TRUE)
+7. Push source code at least daily to github. When connected to travis-ci (2.1) this will also trigger the automated checking on that platform (Ubuntu)
+8. Use build and check locally - for a good package there must not be any warnings nor errors nor notes (except 1 note when an existing package is updated.)
+9. Use winbuild site for checking your package on current and next R versions.
+10. A new package should be published during the first phase only on github.
+11. A package should be only published on CRAN when considered a stable first version.
+12. Changes to user visible function names and parameters must be managed (see Hadley Wickham's best practices.)
+
+
+# Style guide
+
+## General
+- All text (source code, comments, metadata, documentation) must be in plain English.
+- All characters are in ASCII code except for messages (these may contain unicode characters in \u1234 format).
+- All source code is general in lowercase (with the exception of names for constants.). 
+- Words in a name are separated by underscore '_'. (Exception: method names for R objects are separated by a dot '.'.)
+
+## Package names
+- follow general conventions
+- only alphanumeric characters
+- maximum 15 characters
+
+## Package versioning
+- follow Bioconductor conventions: x.x.x where x is an integer between 0 and 9
+
+
+## File names 
+- follow package name conventions
+- must end in .R
+- if packages are to be processed in sequence numbers may be added
+
+## Constant names
+- follow general conventions but are
+- in UPPERCASE
+
+## Variable and function names
+- follow general conventions
+- avoid name conflicts with names already used in R community
+- use meaningful names
+
+## S4 objects
+- todo
+
+## Syntax
+
+### Spacing
+- spaces around all infix operators and equal sign in functino calls
+- space always after comma and never before
+- Excption: no spaces around '::'
+- Space before left parentheses except in function calls
+- Extra space may be used before assignments for better alignment - also in paramters of functions.
+
+### Curly braces
+- Opening curly brace never on a new line but followed by a new line.
+- closing curly brace always on a new line.
+- Exception: very short statements that go in one line.
+
+### Line length
+- 80 characters
+
+### Indentation
+- 2 characters
+- do not use tabs
+
+### Assignment
+- use the standard R operator '<-' but not '='
+
+### Comments
+- each line of comment starts with a '#' which is followed by a space.
+- Use additional comment lines with - and = to organize source code.
+
+### S4 objects
+- todo
+
+## Testing
+

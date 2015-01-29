@@ -10,3 +10,5 @@ License: MIT + file LICENSE
 Suggests: devtools, testthat,
     knitr
 VignetteBuilder: knitr
+Collate: demo.R, 
+  package.R
