@@ -2,7 +2,7 @@
 title: "R Coding Best Practices for use at CIP"
 author: "Reinhard Simon"
 date: "Wednesday, January 28, 2015"
-output: html_document
+output: pdf_document
 ---
 
 # Notes
