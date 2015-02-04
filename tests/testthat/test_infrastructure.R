@@ -14,8 +14,10 @@ test_that("check R directory", {
 
 test_that("chck DESCRIPTION file", {
   expect_that(has_description(td), is_false())
-  devtools::create_description(td)
+  add_description(td)
   expect_that(has_description(td), is_true())
+  
+  
 })
 
 
@@ -24,6 +26,10 @@ test_that("check inst directory", {
   expect_that(has_inst(td), is_false())
   dir.create(file.path(td, "inst"))
   expect_that(has_inst(td), is_true())
+})
+
+test_that("format_r works", {
+  # #2
 })
 
 
