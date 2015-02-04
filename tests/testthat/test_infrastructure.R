@@ -18,3 +18,12 @@ test_that("chck DESCRIPTION file", {
   expect_that(has_description(td), is_true())
 })
 
+
+test_that("check inst directory", {
+  # #5
+  expect_that(has_inst(td), is_false())
+  dir.create(file.path(td, "inst"))
+  expect_that(has_inst(td), is_true())
+})
+
+

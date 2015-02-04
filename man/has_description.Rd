@@ -4,10 +4,10 @@
 \alias{has_description}
 \title{has_description}
 \usage{
-has_description(dir = ".")
+has_description(adir = ".")
 }
 \arguments{
-\item{dir}{a directory}
+\item{adir}{a directory}
 }
 \value{
 boolean true or false
