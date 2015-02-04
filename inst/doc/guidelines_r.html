@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="Reinhard Simon" />
+
+<meta name="date" content="2015-02-03" />
+
+<title>R Coding Best Practices for use at CIP</title>
+
+
+
+
+<link href="data:text/css,body%20%7B%0A%20%20background%2Dcolor%3A%20%23fff%3B%0A%20%20margin%3A%201em%20auto%3B%0A%20%20max%2Dwidth%3A%20700px%3B%0A%20%20overflow%3A%20visible%3B%0A%20%20padding%2Dleft%3A%202em%3B%0A%20%20padding%2Dright%3A%202em%3B%0A%20%20font%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0A%20%20font%2Dsize%3A%2014px%3B%0A%20%20line%2Dheight%3A%201%2E35%3B%0A%7D%0A%0A%23header%20%7B%0A%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0A%23TOC%20%7B%0A%20%20clear%3A%20both%3B%0A%20%20margin%3A%200%200%2010px%2010px%3B%0A%20%20padding%3A%204px%3B%0A%20%20width%3A%20400px%3B%0A%20%20border%3A%201px%20solid%20%23CCCCCC%3B%0A%20%20border%2Dradius%3A%205px%3B%0A%0A%20%20background%2Dcolor%3A%20%23f6f6f6%3B%0A%20%20font%2Dsize%3A%2013px%3B%0A%20%20line%2Dheight%3A%201%2E3%3B%0A%7D%0A%20%20%23TOC%20%2Etoctitle%20%7B%0A%20%20%20%20font%2Dweight%3A%20bold%3B%0A%20%20%20%20font%2Dsize%3A%2015px%3B%0A%20%20%20%20margin%2Dleft%3A%205px%3B%0A%20%20%7D%0A%0A%20%20%23TOC%20ul%20%7B%0A%20%20%20%20padding%2Dleft%3A%2040px%3B%0A%20%20%20%20margin%2Dleft%3A%20%2D1%2E5em%3B%0A%20%20%20%20margin%2Dtop%3A%205px%3B%0A%20%20%20%20margin%2Dbottom%3A%205px%3B%0A%20%20%7D%0A%20%20%23TOC%20ul%20ul%20%7B%0A%20%20%20%20margin%2Dleft%3A%20%2D2em%3B%0A%20%20%7D%0A%20%20%23TOC%20li%20%7B%0A%20%20%20%20line%2Dheight%3A%2016px%3B%0A%20%20%7D%0A%0Atable%20%7B%0A%20%20margin%3A%201em%20auto%3B%0A%20%20border%2Dwidth%3A%201px%3B%0A%20%20border%2Dcolor%3A%20%23DDDDDD%3B%0A%20%20border%2Dstyle%3A%20outset%3B%0A%20%20border%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0A%20%20border%2Dwidth%3A%202px%3B%0A%20%20padding%3A%205px%3B%0A%20%20border%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0A%20%20border%2Dwidth%3A%201px%3B%0A%20%20border%2Dstyle%3A%20inset%3B%0A%20%20line%2Dheight%3A%2018px%3B%0A%20%20padding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0A%20%20border%2Dleft%2Dstyle%3A%20none%3B%0A%20%20border%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0A%0Ap%20%7B%0A%20%20margin%3A%200%2E5em%200%3B%0A%7D%0A%0Ablockquote%20%7B%0A%20%20background%2Dcolor%3A%20%23f6f6f6%3B%0A%20%20padding%3A%200%2E25em%200%2E75em%3B%0A%7D%0A%0Ahr%20%7B%0A%20%20border%2Dstyle%3A%20solid%3B%0A%20%20border%3A%20none%3B%0A%20%20border%2Dtop%3A%201px%20solid%20%23777%3B%0A%20%20margin%3A%2028px%200%3B%0A%7D%0A%0Adl%20%7B%0A%20%20margin%2Dleft%3A%200%3B%0A%7D%0A%20%20dl%20dd%20%7B%0A%20%20%20%20margin%2Dbottom%3A%2013px%3B%0A%20%20%20%20margin%2Dleft%3A%2013px%3B%0A%20%20%7D%0A%20%20dl%20dt%20%7B%0A%20%20%20%20font%2Dweight%3A%20bold%3B%0A%20%20%7D%0A%0Aul%20%7B%0A%20%20margin%2Dtop%3A%200%3B%0A%7D%0A%20%20ul%20li%20%7B%0A%20%20%20%20list%2Dstyle%3A%20circle%20outside%3B%0A%20%20%7D%0A%20%20ul%20ul%20%7B%0A%20%20%20%20margin%2Dbottom%3A%200%3B%0A%20%20%7D%0A%0Apre%2C%20code%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20color%3A%20%23333%3B%0A%7D%0Apre%20%7B%0A%20%20white%2Dspace%3A%20pre%2Dwrap%3B%20%20%20%20%2F%2A%20Wrap%20long%20lines%20%2A%2F%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20margin%3A%205px%200px%2010px%200px%3B%0A%20%20padding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0A%0Acode%20%7B%0A%20%20font%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0A%20%20font%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0A%20%20padding%3A%202px%200px%3B%0A%7D%0A%0Adiv%2Efigure%20%7B%0A%20%20text%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0A%20%20background%2Dcolor%3A%20%23FFFFFF%3B%0A%20%20padding%3A%202px%3B%0A%20%20border%3A%201px%20solid%20%23DDDDDD%3B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20border%3A%201px%20solid%20%23CCCCCC%3B%0A%20%20margin%3A%200%205px%3B%0A%7D%0A%0Ah1%20%7B%0A%20%20margin%2Dtop%3A%200%3B%0A%20%20font%2Dsize%3A%2035px%3B%0A%20%20line%2Dheight%3A%2040px%3B%0A%7D%0A%0Ah2%20%7B%0A%20%20border%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0A%20%20padding%2Dtop%3A%2010px%3B%0A%20%20padding%2Dbottom%3A%202px%3B%0A%20%20font%2Dsize%3A%20145%25%3B%0A%7D%0A%0Ah3%20%7B%0A%20%20border%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0A%20%20padding%2Dtop%3A%2010px%3B%0A%20%20font%2Dsize%3A%20120%25%3B%0A%7D%0A%0Ah4%20%7B%0A%20%20border%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0A%20%20margin%2Dleft%3A%208px%3B%0A%20%20font%2Dsize%3A%20105%25%3B%0A%7D%0A%0Ah5%2C%20h6%20%7B%0A%20%20border%2Dbottom%3A%201px%20solid%20%23ccc%3B%0A%20%20font%2Dsize%3A%20105%25%3B%0A%7D%0A%0Aa%20%7B%0A%20%20color%3A%20%230033dd%3B%0A%20%20text%2Ddecoration%3A%20none%3B%0A%7D%0A%20%20a%3Ahover%20%7B%0A%20%20%20%20color%3A%20%236666ff%3B%20%7D%0A%20%20a%3Avisited%20%7B%0A%20%20%20%20color%3A%20%23800080%3B%20%7D%0A%20%20a%3Avisited%3Ahover%20%7B%0A%20%20%20%20color%3A%20%23BB00BB%3B%20%7D%0A%20%20a%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20underline%3B%20%7D%0A%20%20a%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20underline%3B%20%7D%0A%0A%2F%2A%20Class%20described%20in%20https%3A%2F%2Fbenjeffrey%2Ecom%2Fposts%2Fpandoc%2Dsyntax%2Dhighlighting%2Dcss%0A%20%20%20Colours%20from%20https%3A%2F%2Fgist%2Egithub%2Ecom%2Frobsimmons%2F1172277%20%2A%2F%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20Keyword%20%2A%2F%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%2F%2A%20DataType%20%2A%2F%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%2F%2A%20DecVal%20%28decimal%20values%29%20%2A%2F%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20BaseN%20%2A%2F%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20Float%20%2A%2F%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20Char%20%2A%2F%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20String%20%2A%2F%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%2F%2A%20Comment%20%2A%2F%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%2F%2A%20OtherToken%20%2A%2F%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20AlertToken%20%2A%2F%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20Function%20calls%20%2A%2F%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%2F%2A%20ErrorTok%20%2A%2F%0A%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div id="header">
+<h1 class="title">R Coding Best Practices for use at CIP</h1>
+<h4 class="author"><em>Reinhard Simon</em></h4>
+<h4 class="date"><em>2015-02-03</em></h4>
+</div>
+
+
+<div id="notes" class="section level1">
+<h1>Notes</h1>
+<p>The following is based on best practice documents mainly from Hadley Wickham but complemented with a few ideas. A particular point of confusion is naming in R which consists of mixture of camelcase or names with words separated by underscore. Since the latter is the standard in GNU and R is a GNU project we adhere in case of doubt to GNU best practices.</p>
+</div>
+<div id="principles" class="section level1">
+<h1>Principles</h1>
+<ul>
+<li><a href="http://www.artima.com/weblogs/viewpost.jsp?thread=331531">Principles of Good Programming</a></li>
+<li>Consistency</li>
+<li>Conform to community standards and tools (Particular R package guidelines and tools as well as guidelines from Bioconductor - see below)</li>
+<li>Reproducibility</li>
+<li>Frequent checks - favor test driven development</li>
+<li>Automation</li>
+<li>Test driven development should be favored.</li>
+<li>All source code and comments are intellectual property of CIP.</li>
+<li>Software and source code are made available under an open source license (compatible with R set of accepted licenses; currently MIT license).</li>
+</ul>
+</div>
+<div id="code-organization" class="section level1">
+<h1>Code organization</h1>
+<ol style="list-style-type: decimal">
+<li>R code should be organized in packages</li>
+<li>Package structure follows R package guidelines</li>
+<li>One file per user visible function</li>
+<li>Aim at 25-30 lines per function</li>
+<li>The R directory for packages does not allow sub-directories; so, all code files need to go in this directory. Grouping files may be achieve through shared prefixes.</li>
+</ol>
+</div>
+<div id="coding-environment" class="section level1">
+<h1>Coding environment</h1>
+<ol style="list-style-type: decimal">
+<li>The standard IDE for R at CIP is RStudio.</li>
+<li>Editor standard formatting options should be adhered to. Particularly, line length should be 80 characters and indentation be set to two space characters.</li>
+<li>The standard documentation is to be created in roxygen2 format.</li>
+<li>The standard source code management tool is git.</li>
+<li>Source code is hosted on github.</li>
+<li>For vignettes knitr is to be used.</li>
+<li>For formatting consistency source code should be formmatted by formatR.</li>
+<li>Issues are tracked on github.</li>
+<li>All packages must have tests (using testthat).</li>
+<li>Use the devtools package for facilitating the installation of additional coding support tools.</li>
+<li>Continuous integration online services are used (travis-ci and AppVeyor)</li>
+</ol>
+</div>
+<div id="package-development-workflow" class="section level1">
+<h1>Package development workflow</h1>
+<ol style="list-style-type: decimal">
+<li>For a fresh package start with creating an empty package on github. Choose a unique name (check CRAN and bioconductor sites for name conflicts). The package name must be in English and all lowercase with only alphanumeric characters. Choose ‘R’ in gitignore, create a Readme.md file and add a MIT license.</li>
+<li>From RStudio create a package from github using the URL 2.1. Use devtools::use_travis() to prepare for continuous integration 2.2. Use devtools::use_testthat() to prepare testing infrastructure 2.3. Use devtolls::use_vignette(“my_name”) 2.4. Enable automated creation of man files via roxygen2 in RStudio options 2.5. Set Sweave to use knitr in RStudio options</li>
+<li>Edit the DESCRIPTION file according to R CRAN instructions</li>
+<li>Add tests using testthat. 4.1. Add features on github 4.2. Use auto_test feature by opening a separate R instance and point auto_test to the current package in progress.</li>
+<li>Add code. 5.1. Each function must have a corresponding working example of usage (best under a separate inst/examples directory). 5.2. Profile code.</li>
+<li>Use atomic git commits. Add meaningful comments to commit messages and add references to git issues using github key words like ‘closes’.</li>
+<li>Add documentation to source code files in roxygen2 format while complying with R package development guidelines. 6.1 Use formatR package for correct formatting; paramters: indent=2 and arrow=TRUE; that is: formatR::tidy_dir(“R”, indent=2, arrow=TRUE)</li>
+<li>Push source code at least daily to github. When connected to travis-ci (2.1) this will also trigger the automated checking on that platform (Ubuntu)</li>
+<li>Use build and check locally - for a good package there must not be any warnings nor errors nor notes (except 1 note when an existing package is updated.)</li>
+<li>Use winbuild site for checking your package on current and next R versions.</li>
+<li>A new package should be published during the first phase only on github.</li>
+<li>A package should be only published on CRAN when considered a stable first version.</li>
+<li>Changes to user visible function names and parameters must be managed (see Hadley Wickham’s best practices.)</li>
+</ol>
+</div>
+<div id="style-guide" class="section level1">
+<h1>Style guide</h1>
+<div id="general" class="section level2">
+<h2>General</h2>
+<ul>
+<li>All text (source code, comments, metadata, documentation) must be in plain English.</li>
+<li>All characters are in ASCII code except for messages (these may contain unicode characters in 234 format).</li>
+<li>All source code is general in lowercase (with the exception of names for constants.).</li>
+<li>Words in a name are separated by underscore ’_‘. (Exception: method names for R objects are separated by a dot’.’.)</li>
+</ul>
+</div>
+<div id="package-names" class="section level2">
+<h2>Package names</h2>
+<ul>
+<li>follow general conventions</li>
+<li>only alphanumeric characters</li>
+<li>maximum 15 characters</li>
+</ul>
+</div>
+<div id="package-versioning" class="section level2">
+<h2>Package versioning</h2>
+<ul>
+<li>follow Bioconductor conventions: x.x.x where x is an integer between 0 and 9</li>
+</ul>
+</div>
+<div id="file-names" class="section level2">
+<h2>File names</h2>
+<ul>
+<li>follow package name conventions</li>
+<li>must end in .R</li>
+<li>if packages are to be processed in sequence numbers may be added</li>
+</ul>
+</div>
+<div id="constant-names" class="section level2">
+<h2>Constant names</h2>
+<ul>
+<li>follow general conventions but are</li>
+<li>in UPPERCASE</li>
+</ul>
+</div>
+<div id="variable-and-function-names" class="section level2">
+<h2>Variable and function names</h2>
+<ul>
+<li>follow general conventions</li>
+<li>avoid name conflicts with names already used in R community</li>
+<li>use meaningful names</li>
+</ul>
+</div>
+<div id="s4-objects" class="section level2">
+<h2>S4 objects</h2>
+<ul>
+<li>todo</li>
+</ul>
+</div>
+<div id="syntax" class="section level2">
+<h2>Syntax</h2>
+<div id="spacing" class="section level3">
+<h3>Spacing</h3>
+<ul>
+<li>spaces around all infix operators and equal sign in functino calls</li>
+<li>space always after comma and never before</li>
+<li>Excption: no spaces around ‘::’</li>
+<li>Space before left parentheses except in function calls</li>
+<li>Extra space may be used before assignments for better alignment - also in paramters of functions.</li>
+</ul>
+</div>
+<div id="curly-braces" class="section level3">
+<h3>Curly braces</h3>
+<ul>
+<li>Opening curly brace never on a new line but followed by a new line.</li>
+<li>closing curly brace always on a new line.</li>
+<li>Exception: very short statements that go in one line.</li>
+</ul>
+</div>
+<div id="line-length" class="section level3">
+<h3>Line length</h3>
+<ul>
+<li>80 characters</li>
+</ul>
+</div>
+<div id="indentation" class="section level3">
+<h3>Indentation</h3>
+<ul>
+<li>2 characters</li>
+<li>do not use tabs</li>
+</ul>
+</div>
+<div id="assignment" class="section level3">
+<h3>Assignment</h3>
+<ul>
+<li>use the standard R operator ‘&lt;-’ but not ‘=’</li>
+</ul>
+</div>
+<div id="comments" class="section level3">
+<h3>Comments</h3>
+<ul>
+<li>each line of comment starts with a ‘#’ which is followed by a space.</li>
+<li>Use additional comment lines with - and = to organize source code.</li>
+</ul>
+</div>
+<div id="s4-objects-1" class="section level3">
+<h3>S4 objects</h3>
+<ul>
+<li>todo</li>
+</ul>
+</div>
+</div>
+<div id="testing" class="section level2">
+<h2>Testing</h2>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
