@@ -7,5 +7,7 @@
 #' @export
 #' @author Reinhard Simon
 has_description <- function(dir = "."){
-  file.exists(file.path(dir, "DESCRIPTION"))
+  dir %>%
+    file.path("DESCRIPTION") %>%
+      file.exists()
 }

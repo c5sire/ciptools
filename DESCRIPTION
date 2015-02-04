@@ -8,6 +8,8 @@ Maintainer: Reinhard Simon <R.SIMON@CGIAR.ORG>
 Description: More about what it does (maybe more than one line)
 License: MIT + file LICENSE
 Depends: R (>= 3.1.2)
-Suggests: testthat, devtools,
+Imports: magrittr
+Suggests: testthat, 
     knitr
 VignetteBuilder: knitr
+Collates: ciptools-package.r, has_description.R, has_r.R
