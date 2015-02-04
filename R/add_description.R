@@ -6,6 +6,6 @@
 #' @return logical success
 #' @author Reinhard Simon
 #' @export
-add_description <- function(adir = "."){
-  x = devtools::create_description(adir)
-}
+add_description <- function(adir = ".") {
+  x <- devtools::create_description(adir)
+} 

@@ -6,6 +6,6 @@
 #' @return boolean true or false
 #' @export
 #' @author Reinhard Simon
-has_description <- function(adir = "."){
+has_description <- function(adir = ".") {
   file.exists(file.path(adir, "DESCRIPTION"))
-}
+} 

@@ -6,6 +6,6 @@
 #' @return boolean true or false
 #' @export
 #' @author Reinhard Simon
-has_inst <- function(adir = "."){
+has_inst <- function(adir = ".") {
   file.exists(file.path(adir, "inst"))
-}
+} 

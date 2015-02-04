@@ -6,6 +6,6 @@
 #' @return boolean true or false
 #' @export
 #' @author Reinhard Simon
-has_r <- function(dir = "."){
-   file.exists(file.path(dir, "R"))
-}
+has_r <- function(dir = ".") {
+  file.exists(file.path(dir, "R"))
+} 
