@@ -2,7 +2,7 @@
 #' 
 #' Checks that the directory given has a subdirectory 'inst'
 #' 
-#' @param dir a directory
+#' @param adir a directory
 #' @return boolean true or false
 #' @export
 #' @author Reinhard Simon

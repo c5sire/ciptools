@@ -7,7 +7,7 @@
 has_inst(adir = ".")
 }
 \arguments{
-\item{dir}{a directory}
+\item{adir}{a directory}
 }
 \value{
 boolean true or false
