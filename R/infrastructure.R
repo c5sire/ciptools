@@ -58,3 +58,27 @@ add_desc_package <- function(pkg = ".", field, name) {
   invisible(changed)
 }
 
+replace_desc_package <- function(pkg = ".", field, name) {
+  pkg <- as.package(pkg)
+  desc_path <- file.path(pkg$path, "DESCRIPTION")
+  desc <- read_dcf(desc_path)
+  old <- desc[[field]]
+  if (is.null(old)) {
+    new <- name
+    changed <- TRUE
+  } else {
+    if (!grepl(name, old)) {
+      #new <- paste0(old, ",\n ", name)
+      new <- name
+      changed <- TRUE
+    } else {
+      changed <- FALSE
+    }
+  }
+  if (changed) {
+    desc[[field]] <- new
+    write_dcf(desc_path, desc)
+  }
+  invisible(changed)
+}
+
