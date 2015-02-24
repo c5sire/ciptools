@@ -39,6 +39,7 @@ github_info <- function(pkg = ".") {
   parse_github_remote(github_url)
 }
 github_dummy <- list(username = "<USERNAME>", repo = "<REPO>")
+
 parse_github_remote <- function(x) {
   if (length(x) == 0) return(github_dummy)
   if (!grepl("github", x)) return(github_dummy)
