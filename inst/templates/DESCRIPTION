@@ -1,0 +1,11 @@
+Package: {{pkg}}
+Type: Package
+Title: A Title in Title Case
+Version: 0.0.1.9000
+Date: {{date}}
+Authors@R: "{{author}}" <{{pkg_email}}> [aut, cre]
+Maintainer: {{author}} {{pkg_email}}
+Description: More about what it does (maybe more than one line)
+License: MIT
+Copyright: International Potato Center ({{year}})
+Depends: R (>= 3.1.2)

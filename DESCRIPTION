@@ -1,16 +1,8 @@
 Package: ciptools
-Type: Package
-Title: Tools to Help R Development at CIP
-Version: 1.2.3
-Date: 2015-01-29
-Author: Reinhard Simon
-Maintainer: Reinhard Simon <R.SIMON@CGIAR.ORG>
-Description: More about what it does (maybe more than one line)
-License: MIT
+Title: What the Package Does (one line, title case)
+Version: 0.0.0.9000
+Authors@R: "Reinhard Simon" <R.SIMON@CGIAR.ORG> [aut, cre]
+Description: What the package does (one paragraph)
 Depends: R (>= 3.1.2)
-Imports: devtools, formatR
-Suggests: testthat, 
-    knitr
-VignetteBuilder: knitr
-Collates: ciptools_package.R, has_description.R, has_r.R, has_inst.R, format_r.R, add_description.R
-Copyright: International Potato Center (2015)
+License: MIT
+LazyData: true
