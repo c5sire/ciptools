@@ -5,6 +5,3 @@
 #' @name ciptools
 #' @docType package
 NULL
-
-library("devtools")
-library("formatR") 

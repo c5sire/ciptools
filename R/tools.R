@@ -1,7 +1,7 @@
 
 
 new_description <- function() {
-  create_description(extra=list("Version: 0.0.1.9999"))
+  create_description(extra=list("Version: 0.0.1.9000"))
   
 }
 
@@ -23,3 +23,8 @@ new_description <- function() {
 #
 # Remaining things to do for user: register on three additional sites and manage package
 #
+
+add_cip <- function(params <- list(author="Reinhard Simon", email="R.SIMON@CGIAR.ORG")){
+  
+}
+
