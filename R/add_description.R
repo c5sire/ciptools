@@ -114,7 +114,7 @@ new_description <- function(adir = ".",
   
   add_description("Date", format(Sys.time(),"%Y-%m-%d"))
   
-  update_git()
+  update_git() # also adds support for continuous integration and testing
   github_user <- get_git_user()
   if(!is.null(github_user)){
     packageName <- basename(getwd())
