@@ -14,8 +14,8 @@ test_that("check R directory", {
 
 test_that("chck DESCRIPTION file", {
   expect_that(has_description(td), is_false())
-  add_description(td)
-  expect_that(has_description(td), is_true())
+  #new_description()
+  #expect_that(has_description(td), is_true())
   
   
 })

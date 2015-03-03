@@ -5,32 +5,38 @@
 
 uses_git <- function(pkg = ".") {
   if (is.character(pkg) && !file.info(pkg)$isdir) return(FALSE)
-  pkg <- as.package(pkg)
+  pkg <- devtools::as.package(pkg)
   file.exists(file.path(pkg$path, ".git"))
 }
+
+
 git <- function(args, quiet = TRUE, path = ".") {
   full <- paste0(shQuote(git_path()), " ", paste(args, collapse = ""))
   if (!quiet) {
     message(full)
   }
-  result <- in_dir(path, system(full, intern = TRUE, ignore.stderr = quiet))
+  result <- devtools::in_dir(path, system(full, intern = TRUE, ignore.stderr = quiet))
   status <- attr(result, "status") %||% 0
   if (!identical(as.character(status), "0")) {
     stop("Command failed (", status, ")", call. = FALSE)
   }
   result
 }
+
+
 git_sha1 <- function(n = 10, path = ".") {
   sha <- git(c("rev-parse", " --short=", n, " HEAD"), path = path)
   if (uncommitted(path)) sha <- paste0(sha, "*")
   sha
 }
+
+
 uncommitted <- function(path = ".") {
-  in_dir(path, system("git diff-index --quiet --cached HEAD") == 1 ||
+  devtools::in_dir(path, system("git diff-index --quiet --cached HEAD") == 1 ||
            system("git diff-files --quiet") == 1)
 }
 github_info <- function(pkg = ".") {
-  pkg <- as.package(pkg)
+  pkg <- devtools::as.package(pkg)
   if (!uses_git(pkg$path)) return(github_dummy)
   remotes <- git("remote -v", path = pkg$path)
   remotes_df <- read.table(text = remotes, stringsAsFactors = FALSE)
@@ -56,6 +62,8 @@ parse_github_remote <- function(x) {
   match <- regmatches(x, m)[[1]]
   list(username = match[2], repo = match[3])
 }
+
+
 # Retrieve the current running path of the git binary.
 # @param git_binary_name The name of the binary depending on the OS.
 git_path <- function(git_binary_name = NULL) {

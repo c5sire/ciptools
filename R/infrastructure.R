@@ -1,13 +1,17 @@
 # This fragment is from Jim Heesters pull request
 # https://github.com/jimhester/devtools/blob/65041349864cae5205036572afd9ee0f7b8a0272/R/infrastructure.R
 #
+library(devtools)
+library(whisker)
 
-#' @rdname infrastructure
-#' @section \code{use_coveralls}:
-#' Add coveralls to basic travis template to a package.
+#' Use coveralls
+#' 
+#' Taken from Jim Heesters modified devtools package
+#' 
+#' @param pkg a directory
 #' @export
 use_coveralls <- function(pkg = ".") {
-  pkg <- as.package(pkg)
+  pkg <- devtools::as.package(pkg)
   path <- file.path(pkg$path, ".travis.yml")
   if (!file.exists(path)) {
     stop(".travis.yml does not exist, please run `use_travis()` to create it", call. = FALSE)
@@ -34,9 +38,8 @@ use_coveralls <- function(pkg = ".") {
   writeLines(travis_content, file.path(pkg$path, ".travis.yml"))
 }
 
-
 add_desc_package <- function(pkg = ".", field, name) {
-  pkg <- as.package(pkg)
+  pkg <- devtools::as.package(pkg)
   desc_path <- file.path(pkg$path, "DESCRIPTION")
   desc <- read_dcf(desc_path)
   old <- desc[[field]]
@@ -59,7 +62,7 @@ add_desc_package <- function(pkg = ".", field, name) {
 }
 
 replace_desc_package <- function(pkg = ".", field, name) {
-  pkg <- as.package(pkg)
+  pkg <- devtools::as.package(pkg)
   desc_path <- file.path(pkg$path, "DESCRIPTION")
   desc <- read_dcf(desc_path)
   old <- desc[[field]]

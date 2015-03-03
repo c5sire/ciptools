@@ -2,20 +2,19 @@
 % Please edit documentation in R/add_description.R
 \name{add_description}
 \alias{add_description}
-\title{add_description}
+\title{Add to description}
 \usage{
-add_description(adir = ".")
+add_description(field = "Package", name = basename(getwd()), pkg = ".")
 }
 \arguments{
-\item{adir}{a directory}
-}
-\value{
-logical success
+\item{field}{the field name}
+
+\item{name}{the content of the field}
+
+\item{pkg}{the package directory}
 }
 \description{
-Adds a description file in CIP format
-}
-\author{
-Reinhard Simon
+Add a field to the description file. This function is a wrappe around a function
+from the devtools package.
 }
 
