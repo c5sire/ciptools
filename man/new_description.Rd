@@ -23,6 +23,8 @@ new_description(adir = ".", title = "My Productivity Tool (Use Title Case)",
 
 \item{email}{reference email. Must match.}
 
+\item{role}{a vector of roles}
+
 \item{copyright}{Copyright holder.}
 
 \item{license}{Standard license.}

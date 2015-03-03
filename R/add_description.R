@@ -74,6 +74,7 @@ replace_description <- function(field, name, pkg="."){
 #' @param name_first of author
 #' @param name_last of author
 #' @param email reference email. Must match.
+#' @param role a vector of roles
 #' @param copyright Copyright holder.
 #' @param license Standard license.
 #' @return logical success
