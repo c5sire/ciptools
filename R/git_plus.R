@@ -64,4 +64,28 @@ update_git <- function(pkg = "."){
 }
 
 
+#' first_commit
+#' 
+#' Does a first round of adding all files to git and pushing to github.
+#' 
+#' @param pkg path to pkg
+#' @param msg a message
+#' @author Reinhard Simon
+#' @export
+first_commit <- function(pkg=".", msg="Initial commit."){
+  try(knitr::knit("README.Rmd"))
+  txt <- readLines("README.md")
+  txt <- paste(txt, collapse="\n")
+  txt <- stringr::str_replace(txt, "---(.*?)---", "")
+  writeLines(txt, "README.md", sep="")
+  
+  try(roxygen2::roxygenise(pkg))
+  do_git("git add -A", pkg)  
+  do_git(paste0("git commit -m \"",msg,"\""), pkg)
+  #Check if internet connection
+  #Check if github repository exists
+  #do_git("git push -u origin master", pkg, quiet=FALSE)
+}
+
+
 
