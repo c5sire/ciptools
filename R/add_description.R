@@ -10,6 +10,10 @@ adjust_author <- function(pkg=".") {
 
 
 adjust_readme <- function(title, description, pkg="."){
+  if(file.exists("README.Rmd")) {
+    message("README.Rmd exists already.\nConsider deleting to start from scratch!")
+    return()
+  }
   devtools::use_readme_rmd()
   fp <- file.path(pkg,"README.Rmd")
   fs <- file.info(fp)[['size']]
@@ -23,6 +27,7 @@ adjust_readme <- function(title, description, pkg="."){
   appveyor <- "[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/{{github_user}}/{{package}}?branch=master)](https://ci.appveyor.com/project/{{github_user}}/{{package}})"
   covrall <- "[![Coverage Status](https://img.shields.io/coveralls/{{github_user}}/{{package}}.svg)](https://coveralls.io/r/{{github_user}}/{{package}}?branch=master)"
   tpl = paste(travis, appveyor, covrall)
+  tpl <- paste0(tpl, "\n\n")
   github_user <- get_git_user()
   package <- basename(getwd())
   
@@ -144,6 +149,16 @@ new_description <- function(adir = ".",
     adjust_readme(title, description, adir)
   }
 } 
+
+
+
+add_tests <-function(person){
+  # code example
+  # tests
+  # vignette example
+  # testthat
+  # 
+}
 
 
 
