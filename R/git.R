@@ -1,10 +1,9 @@
 # This file is taken from H. Wickhams devtool package.
-# 
 # https://github.com/hadley/devtools/blob/b57afa09700d5820d374735481f267dd2e9508d5/R/git.R
-# 
 
 uses_git <- function(pkg = ".") {
-  if (is.character(pkg) && !file.info(pkg)$isdir) return(FALSE)
+  if (is.character(pkg) && !file.info(pkg)$isdir) 
+    return(FALSE)
   pkg <- devtools::as.package(pkg)
   file.exists(file.path(pkg$path, ".git"))
 }
@@ -26,18 +25,20 @@ git <- function(args, quiet = TRUE, path = ".") {
 
 git_sha1 <- function(n = 10, path = ".") {
   sha <- git(c("rev-parse", " --short=", n, " HEAD"), path = path)
-  if (uncommitted(path)) sha <- paste0(sha, "*")
+  if (uncommitted(path)) 
+    sha <- paste0(sha, "*")
   sha
 }
 
 
 uncommitted <- function(path = ".") {
-  devtools::in_dir(path, system("git diff-index --quiet --cached HEAD") == 1 ||
-           system("git diff-files --quiet") == 1)
+  devtools::in_dir(path, system("git diff-index --quiet --cached HEAD") == 1 || system("git diff-files --quiet") == 
+    1)
 }
 github_info <- function(pkg = ".") {
   pkg <- devtools::as.package(pkg)
-  if (!uses_git(pkg$path)) return(github_dummy)
+  if (!uses_git(pkg$path)) 
+    return(github_dummy)
   remotes <- git("remote -v", path = pkg$path)
   remotes_df <- read.table(text = remotes, stringsAsFactors = FALSE)
   names(remotes_df) <- c("name", "url", "type")
@@ -47,8 +48,10 @@ github_info <- function(pkg = ".") {
 github_dummy <- list(username = "<USERNAME>", repo = "<REPO>")
 
 parse_github_remote <- function(x) {
-  if (length(x) == 0) return(github_dummy)
-  if (!grepl("github", x)) return(github_dummy)
+  if (length(x) == 0) 
+    return(github_dummy)
+  if (!grepl("github", x)) 
+    return(github_dummy)
   if (grepl("^https", x)) {
     # https://github.com/hadley/devtools.git
     re <- "github.com/(.*?)/(.*)\\.git"
@@ -64,8 +67,8 @@ parse_github_remote <- function(x) {
 }
 
 
-# Retrieve the current running path of the git binary.
-# @param git_binary_name The name of the binary depending on the OS.
+# Retrieve the current running path of the git binary.  @param git_binary_name The name of the binary depending on
+# the OS.
 git_path <- function(git_binary_name = NULL) {
   # Use user supplied path
   if (!is.null(git_binary_name)) {
@@ -76,35 +79,32 @@ git_path <- function(git_binary_name = NULL) {
   }
   # Look on path
   git_path <- Sys.which("git")[[1]]
-  if (git_path != "") return(git_path)
+  if (git_path != "") 
+    return(git_path)
   # On Windows, look in common locations
   if (.Platform$OS.type == "windows") {
-    look_in <- c(
-      "C:/Program Files/Git/bin/git.exe",
-      "C:/Program Files (x86)/Git/bin/git.exe"
-    )
+    look_in <- c("C:/Program Files/Git/bin/git.exe", "C:/Program Files (x86)/Git/bin/git.exe")
     found <- file.exists(look_in)
-    if (any(found)) return(look_in[found][1])
+    if (any(found)) 
+      return(look_in[found][1])
   }
   stop("Git does not seem to be installed on your system.", call. = FALSE)
 }
-# Extract the commit hash from a git archive. Git archives include the SHA1
-# hash as the comment field of the zip central directory record
-# (see https://www.kernel.org/pub/software/scm/git/docs/git-archive.html)
-# Since we know it's 40 characters long we seek that many bytes minus 2
-# (to confirm the comment is exactly 40 bytes long)
+# Extract the commit hash from a git archive. Git archives include the SHA1 hash as the comment field of the zip
+# central directory record (see https://www.kernel.org/pub/software/scm/git/docs/git-archive.html) Since we know it's
+# 40 characters long we seek that many bytes minus 2 (to confirm the comment is exactly 40 bytes long)
 git_extract_sha1 <- function(bundle) {
   # open the bundle for reading
   conn <- file(bundle, open = "rb", raw = TRUE)
   on.exit(close(conn))
   # seek to where the comment length field should be recorded
-  seek(conn, where = -0x2a, origin = "end")
+  seek(conn, where = -42, origin = "end")
   # verify the comment is length 0x28
   len <- readBin(conn, "raw", n = 2)
-  if (len[1] == 0x28 && len[2] == 0x00) {
+  if (len[1] == 40 && len[2] == 0) {
     # read and return the SHA1
-    rawToChar(readBin(conn, "raw", n = 0x28))
+    rawToChar(readBin(conn, "raw", n = 40))
   } else {
     NULL
   }
-}
+} 

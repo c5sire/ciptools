@@ -8,7 +8,7 @@
 #' @family example
 #' @example inst/examples/ex_hello.R
 #' @export
-hello <- function(name = "world"){
+hello <- function(name = "world") {
   stopifnot(is.character(name))
   paste0("Hello, ", name, "!")
-}
+} 
