@@ -51,9 +51,16 @@ update_git <- function(pkg = "."){
   } 
   # if has git: add a standard remote repo on github
     add_github()
+  try(
     devtools::use_travis()
+  )
+  try(
     devtools::use_appveyor()
+  )
+  try(
     use_coveralls()
+  )
+    
 }
 
 

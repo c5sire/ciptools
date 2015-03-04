@@ -28,13 +28,25 @@ adjust_readme <- function(title, description, pkg="."){
   
   txt <- whisker::whisker.render(tpl)
   
-  td <- paste0(txt, "\n\n<--")
-  ch <- stringr::str_replace(ch, "<--", txt)
+  td <- paste0(txt, "\n\n<!--")
+  ch <- stringr::str_replace(ch, "<!--", txt)
   
   nc <- nchar(ch)
   writeChar(ch, fp, nc, eos=NULL)
 }
 
+to_author <- function(persons){
+  txt <- "as.person(c(\n"
+  n <- length(persons)
+  for(i in 1:n){
+    txt <- paste(txt, "   \"", persons[i], "\"", sep="")
+    if(i < n) {
+      txt <- paste0(txt, ",")
+    }
+    txt <- paste0(txt, "\n")
+  }
+  paste0(txt, "  ))")
+}
 #' Add to description
 #' 
 #' Add a field to the description file. This function is a wrappe around a function 
@@ -71,10 +83,11 @@ replace_description <- function(field, name, pkg="."){
 #' @param adir a directory
 #' @param title for DESCRIPTION and README files
 #' @param description for DESCRIPTION and README files
-#' @param name_first of author
-#' @param name_last of author
-#' @param email reference email. Must match.
-#' @param role a vector of roles
+#' @param persons a vector of persons
+# @param name_first of author
+# @param name_last of author
+# @param email reference email. Must match.
+# @param role a vector of roles
 #' @param copyright Copyright holder.
 #' @param license Standard license.
 #' @return logical success
@@ -82,11 +95,13 @@ replace_description <- function(field, name, pkg="."){
 #' @export
 new_description <- function(adir = ".", 
                             title = "My Productivity Tool (Use Title Case)",
-                            description = "Be a bit more specific",
-                            name_first="First",
-                            name_last = "Last",
-                            email = "first.last@email.com",
-                            role = c("aut", "cre"),
+                            description = "Be a bit more specific!",
+                            persons = c(person("First", "Last", "M", "first.last@email.com", 
+                                               role=c("aut", "cre") )),
+#                             name_first="First",
+#                             name_last = "Last",
+#                             email = "first.last@email.com",
+#                             role = c("aut", "cre"),
                             copyright = "International Potato Center",
                             license = "MIT + file LICENSE"
                                   ) {
@@ -100,18 +115,14 @@ new_description <- function(adir = ".",
   if(license == "MIT + file LICENSE") {
     file.copy(system.file("templates/LICENSE", package="ciptools"), adir)
   }
-  add_description("Copyright", 
+  replace_description("Copyright", 
                   paste0(copyright," (",format(Sys.time(),"%Y"),")"))
   
   
-  # Replace the following with a routine to work with a person object!
-  tpl <- "c(person('{{name_first}}', '{{name_last}}', '{{email}}', role = c('aut', 'cre')))"
-  txt <- whisker::whisker.render(tpl)
-  replace_description("Authors@R", txt)
+  replace_description("Authors@R", to_author(persons))
   
-#   tpl <- "{{name_first}} {{name_last}} <{{email}}>"
-#   txt <- whisker::whisker.render(tpl)
-#   replace_description("Maintainer", txt)
+  txt <- paste0(persons[1]$given, " ", persons[1]$family, " <", persons[1]$email,">")
+  replace_description("Maintainer", txt)
   
   add_description("Date", format(Sys.time(),"%Y-%m-%d"))
   
@@ -126,6 +137,7 @@ new_description <- function(adir = ".",
     tpl <- "http://github.com/{{github_user}}/{{packageName}}/issues"
     txt <- whisker::whisker.render(tpl)
     add_description("BugReports", txt)
+    adjust_readme(title, description, adir)
   }
 } 
 

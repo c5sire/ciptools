@@ -5,10 +5,9 @@
 \title{new_description}
 \usage{
 new_description(adir = ".", title = "My Productivity Tool (Use Title Case)",
-  description = "Be a bit more specific", name_first = "First",
-  name_last = "Last", email = "first.last@email.com", role = c("aut",
-  "cre"), copyright = "International Potato Center",
-  license = "MIT + file LICENSE")
+  description = "Be a bit more specific!", persons = c(person("First",
+  "Last", "M", "first.last@email.com", role = c("aut", "cre"))),
+  copyright = "International Potato Center", license = "MIT + file LICENSE")
 }
 \arguments{
 \item{adir}{a directory}
@@ -17,13 +16,7 @@ new_description(adir = ".", title = "My Productivity Tool (Use Title Case)",
 
 \item{description}{for DESCRIPTION and README files}
 
-\item{name_first}{of author}
-
-\item{name_last}{of author}
-
-\item{email}{reference email. Must match.}
-
-\item{role}{a vector of roles}
+\item{persons}{a vector of persons}
 
 \item{copyright}{Copyright holder.}
 

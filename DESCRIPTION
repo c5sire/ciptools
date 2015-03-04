@@ -3,13 +3,15 @@ Type: Package
 Title: Tools to Help R Development at CIP
 Version: 0.0.1.9999
 Date: 2015-01-29
-Author: Reinhard Simon
+Authors@R: as.person(c(
+   "Reinhard Simon <r.simon@cgiar.org> [aut, cre]"
+  ))
 Maintainer: Reinhard Simon <R.SIMON@CGIAR.ORG>
 Description: More about what it does (maybe more than one line)
 License: MIT + file LICENSE
 Copyright: International Potato Center (2015)
 Depends: R (>= 3.1.2)
 Imports: formatR,  stringr, devtools, whisker
-Suggests: testthat, 
+Suggests: testthat, covr,
     knitr
 VignetteBuilder: knitr
