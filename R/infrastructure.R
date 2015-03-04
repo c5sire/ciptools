@@ -17,7 +17,7 @@ use_coveralls <- function(pkg = ".") {
     stop(".travis.yml does not exist, please run `use_travis()` to create it", call. = FALSE)
   }
   travis_content <- readLines(file.path(pkg$path, ".travis.yml"))
-  if (any(grepl("covr::coveralls()", travis_content))) {
+  if (any(grepl("library(covr);coveralls()", travis_content))) {
     stop("coveralls information already added to .travis.yml", call. = FALSE)
   }
   gh <- github_info(pkg)
@@ -29,11 +29,11 @@ use_coveralls <- function(pkg = ".") {
           "(https://coveralls.io/r/", gh$username, "/", gh$repo, "?branch=master)"
   )
   install_loc <- grep("^install:$", travis_content)
-  travis_content <- append(travis_content, " - ./travis-tool.sh github_package jimhester/covr", after = install_loc)
+  travis_content <- append(travis_content, "  - ./travis-tool.sh github_package jimhester/covr", after = install_loc)
   after_failure_loc <- grep("^after_failure:$", travis_content)
   travis_content <- append(travis_content,
                            c("after_success:",
-                             " - Rscript -e 'covr::coveralls()'"),
+                             " - Rscript -e 'library(covr);coveralls()'\n"),
                            after = after_failure_loc - 1)
   writeLines(travis_content, file.path(pkg$path, ".travis.yml"))
 }
