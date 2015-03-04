@@ -29,6 +29,4 @@ test_that("check inst directory", {
 
 test_that("format_r works", {
   # #2
-})
-
- 
+}) 

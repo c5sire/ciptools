@@ -2,5 +2,4 @@
 
 hello()
 
-hello("all")
- 
+hello("all") 
