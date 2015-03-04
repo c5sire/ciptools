@@ -29,7 +29,7 @@ adjust_readme <- function(title, description, pkg="."){
   txt <- whisker::whisker.render(tpl)
   
   td <- paste0(txt, "\n\n<!--")
-  ch <- stringr::str_replace(ch, "<!--", txt)
+  ch <- stringr::str_replace(ch, "<!--", td)
   
   nc <- nchar(ch)
   writeChar(ch, fp, nc, eos=NULL)
@@ -106,6 +106,7 @@ new_description <- function(adir = ".",
                             license = "MIT + file LICENSE"
                                   ) {
   #x <- devtools::create_description(adir, extra=list("Version: 0.0.1.9000"))
+  ayear <- format(Sys.time(),"%Y")
   adjust_author(adir)
   replace_description("Version", "0.0.1.9000")
   replace_description("Title", title)
@@ -114,9 +115,12 @@ new_description <- function(adir = ".",
   replace_description("License", license)
   if(license == "MIT + file LICENSE") {
     file.copy(system.file("templates/LICENSE", package="ciptools"), adir)
+    tpl <- readChar("LICENSE", nchars = 100)
+    txt <- whisker::whisker.render(tpl)
+    writeChar(txt, "LICENSE", nchars = nchar(txt), eos = NULL)
   }
   replace_description("Copyright", 
-                  paste0(copyright," (",format(Sys.time(),"%Y"),")"))
+                  paste0(copyright," (",ayear,")"))
   
   
   replace_description("Authors@R", to_author(persons))
