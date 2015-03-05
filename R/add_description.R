@@ -184,7 +184,7 @@ new_description <- function(adir = ".", title = "My Productivity Tool (Use Title
   }
 }
 
-#' format_cip
+#' format_code
 #' 
 #' A convenience wrapper to format R code according to CIP standards for R 
 #' (largely based on H. Wickham/GNU C coding) conventions.
@@ -194,7 +194,7 @@ new_description <- function(adir = ".", title = "My Productivity Tool (Use Title
 #' @param recursive logical; TRUE default means that anything in R code files will be formatted.
 #' @author Reinhard Simon
 #' @export
-format_cip <- function(indent = 2, arrow = TRUE, recursive = TRUE) {
+format_code <- function(indent = 2, arrow = TRUE, recursive = TRUE) {
   formatR::tidy_dir(recursive = recursive, arrow = arrow, indent = indent)
 }
 
@@ -221,7 +221,7 @@ add_tests <- function(pkg = ".") {
     # testthat
     dest <- file.path(pkg, "tests", "testthat", "test_hello.R")
     file.copy(system.file("templates/test_hello.R", package = "ciptools"), dest)
-    format_cip()
+    format_code()
   })
 }
 
