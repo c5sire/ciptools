@@ -75,6 +75,5 @@ first_commit <- function(pkg = ".", msg = "Initial commit.") {
   try(roxygen2::roxygenise(pkg))
   do_git("git add -A", pkg)
   do_git(paste0("git commit -m \"", msg, "\""), pkg)
-  # Check if internet connection Check if github repository exists do_git('git push -u origin master', pkg,
-  # quiet=FALSE)
+  # Check if internet connection Check if github repository exists do_git('git push -u origin master', pkg, quiet=FALSE)
 } 

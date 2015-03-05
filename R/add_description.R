@@ -243,16 +243,8 @@ use_cip <- function(pkg = ".", persons = c(person("Reinard", "Simon", , "r.simon
   new_description(pkg, title = title, description = description, persons = persons)
   add_tests(pkg = pkg)
   first_commit(pkg)
-} 
+}
 
-
-# Remaining todo
-#
-# retrieve authorR
-# consolidate author names
-# Add NEWS.md template; add it to Rignore: devtools::use_build_ignore("NEWS.md")
-# Add some text of usage to README.Rmd
-#
-# shiny app to make a form to edit docs
-
-
+# Remaining todo retrieve authorR consolidate author names Add NEWS.md template; add it to Rignore:
+# devtools::use_build_ignore('NEWS.md') Add some text of usage to README.Rmd shiny app to make a 
+# form to edit docs

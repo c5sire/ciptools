@@ -32,8 +32,7 @@ git_sha1 <- function(n = 10, path = ".") {
 
 
 uncommitted <- function(path = ".") {
-  devtools::in_dir(path, system("git diff-index --quiet --cached HEAD") == 1 || system("git diff-files --quiet") == 
-    1)
+  devtools::in_dir(path, system("git diff-index --quiet --cached HEAD") == 1 || system("git diff-files --quiet") == 1)
 }
 github_info <- function(pkg = ".") {
   pkg <- devtools::as.package(pkg)
@@ -67,8 +66,8 @@ parse_github_remote <- function(x) {
 }
 
 
-# Retrieve the current running path of the git binary.  @param git_binary_name The name of the binary depending on
-# the OS.
+# Retrieve the current running path of the git binary.  @param git_binary_name The name of the binary depending on the
+# OS.
 git_path <- function(git_binary_name = NULL) {
   # Use user supplied path
   if (!is.null(git_binary_name)) {
@@ -90,9 +89,9 @@ git_path <- function(git_binary_name = NULL) {
   }
   stop("Git does not seem to be installed on your system.", call. = FALSE)
 }
-# Extract the commit hash from a git archive. Git archives include the SHA1 hash as the comment field of the zip
-# central directory record (see https://www.kernel.org/pub/software/scm/git/docs/git-archive.html) Since we know it's
-# 40 characters long we seek that many bytes minus 2 (to confirm the comment is exactly 40 bytes long)
+# Extract the commit hash from a git archive. Git archives include the SHA1 hash as the comment field of the zip central
+# directory record (see https://www.kernel.org/pub/software/scm/git/docs/git-archive.html) Since we know it's 40
+# characters long we seek that many bytes minus 2 (to confirm the comment is exactly 40 bytes long)
 git_extract_sha1 <- function(bundle) {
   # open the bundle for reading
   conn <- file(bundle, open = "rb", raw = TRUE)

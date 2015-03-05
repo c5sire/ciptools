@@ -21,8 +21,8 @@ use_coveralls <- function(pkg = ".") {
   }
   gh <- github_info(pkg)
   message("Adding coveralls information into .travis.yml for ", pkg$package, ". Next: \n", " * Turn on coveralls for this repo at https://coveralls.io/repos/new\n", 
-    " * Add a coveralls shield to your README.md:\n", "[![Coverage Status]", "(https://img.shields.io/coveralls/", 
-    gh$username, "/", gh$repo, ".svg)]", "(https://coveralls.io/r/", gh$username, "/", gh$repo, "?branch=master)")
+    " * Add a coveralls shield to your README.md:\n", "[![Coverage Status]", "(https://img.shields.io/coveralls/", gh$username, 
+    "/", gh$repo, ".svg)]", "(https://coveralls.io/r/", gh$username, "/", gh$repo, "?branch=master)")
   install_loc <- grep("^install:$", travis_content)
   travis_content <- append(travis_content, "  - ./travis-tool.sh github_package jimhester/covr", after = install_loc)
   after_failure_loc <- grep("^after_failure:$", travis_content)

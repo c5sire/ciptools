@@ -33,8 +33,8 @@ runApp(list(ui = fluidPage(fluidRow(column(6, htable("hdtable", colHeaders = "pr
         }, simplify = F)
         
         tagList(lapply(picked, function(i) {
-          sliderInput(inputId = paste0(i, "-", "a", buttn), label = h6(paste0(i, "")), min = -100, max = 100, 
-          step = 1, value = as.numeric(valsTv[[i]]$value), post = "%", ticks = FALSE, animate = FALSE)
+          sliderInput(inputId = paste0(i, "-", "a", buttn), label = h6(paste0(i, "")), min = -100, max = 100, step = 1, 
+          value = as.numeric(valsTv[[i]]$value), post = "%", ticks = FALSE, animate = FALSE)
         }), dt1)
       }
     }
