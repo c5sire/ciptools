@@ -36,27 +36,27 @@ to_author <- function(persons) {
   }
   paste0(txt, "  ))")
 }
-#' Add to description
-#' 
-#' Add a field to the description file. This function is a wrappe around a function 
-#' from the devtools package.
-#' 
-#' @param field the field name
-#' @param name the content of the field
-#' @param pkg the package directory
-#' @export
+# Add to description
+# 
+# Add a field to the description file. This function is a wrappe around a function 
+# from the devtools package.
+# 
+# @param field the field name
+# @param name the content of the field
+# @param pkg the package directory
+# export
 add_description <- function(field = "Package", name = basename(getwd()), pkg = ".") {
   add_desc_package(pkg, field, name)
 }
 
-#' Replace a description
-#' 
-#' Replace a field content in he description file. 
-#' 
-#' @param field the field name
-#' @param name the content of the field
-#' @param pkg the package directory
-#' @export
+# Replace a description
+# 
+# Replace a field content in he description file. 
+# 
+# @param field the field name
+# @param name the content of the field
+# @param pkg the package directory
+# @export
 replace_description <- function(field, name, pkg = ".") {
   replace_desc_package(pkg, field, name)
 }
@@ -186,14 +186,14 @@ format_code <- function(indent = 2, arrow = TRUE, recursive = TRUE) {
   formatR::tidy_dir(recursive = recursive, arrow = arrow, indent = indent)
 }
 
-#' add_tests
-#' 
-#' Adds testthat files, examples and vignettes - all different means of 
-#' checking correctness.
-#' 
-#' @param pkg the path to the package
-#' @author Reinhard Simon
-#' @export
+# add_tests
+# 
+# Adds testthat files, examples and vignettes - all different means of 
+# checking correctness.
+# 
+# @param pkg the path to the package
+# @author Reinhard Simon
+# export
 add_tests <- function(pkg = ".") {
   # vignette example
   try({

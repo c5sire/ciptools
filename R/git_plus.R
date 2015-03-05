@@ -34,13 +34,13 @@ add_github <- function() {
   do_git(cmd)
 }
 
-#' Initiate local git repository
-#' 
-#' Executes git init
-#' 
-#' @param path to package
-#' @author Reinhard Simon
-#' @export
+# Initiate local git repository
+# 
+# Executes git init
+# 
+# @param path to package
+# @author Reinhard Simon
+# export
 add_git <- function(path = ".") {
   do_git("git init", path)
 }
