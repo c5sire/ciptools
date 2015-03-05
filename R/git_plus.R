@@ -68,7 +68,7 @@ update_git <- function(pkg = ".") {
 first_commit <- function(pkg = ".", msg = "Initial commit.") {
   try(knitr::knit("README.Rmd"))
   try(devtools::in_dir("vignettes",
-    knitr::knit("tutorial.Rmd")
+    knitr::knit("tutorial.Rmd", "tutorial.html")
     ))
 #   txt <- readLines("README.md")
 #   txt <- paste(txt, collapse = "\n")

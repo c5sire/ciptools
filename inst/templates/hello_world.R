@@ -6,6 +6,7 @@
 #' @return character a string; default is 'Hello, world!'
 #' @author Reinhard Simon
 #' @family example
+#' @example inst/examples/ex_hello.R
 #' @export
 hello_world <- function() {
   hello()

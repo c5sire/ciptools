@@ -21,6 +21,7 @@ adjust_readme <- function(title, description, pkg = ".") {
                title = title, 
                description = description, 
                github_user = github_user)
+  
 }
 
 to_author <- function(persons) {
@@ -204,11 +205,16 @@ add_tests <- function(pkg = ".") {
     file.copy(system.file("templates/hello_world.R", package = "ciptools"), "R/hello_world.R", overwrite = TRUE)
     dest <- file.path(pkg, "inst", "examples", "ex_hello.R")
     file.copy(system.file("templates/ex_hello.R", package = "ciptools"), dest)
+    dest <- file.path(pkg, "inst", "examples", "ex_hello_world.R")
+    file.copy(system.file("templates/ex_hello_world.R", package = "ciptools"), dest)
+    
     # tests
     devtools::use_testthat()
     # testthat
     dest <- file.path(pkg, "tests", "testthat", "test_hello.R")
     file.copy(system.file("templates/test_hello.R", package = "ciptools"), dest)
+    dest <- file.path(pkg, "tests", "testthat", "test_hello_world.R")
+    file.copy(system.file("templates/test_hello_world.R", package = "ciptools"), dest)
     format_code()
   })
 }
