@@ -1,0 +1,12 @@
+Package: {{package}}
+Type: Package
+Title: A Title In Title Case
+Version: 0.0.1.9000
+Date: {{adate}}
+Authors@R: as.person(c(
+   "First Last <f.last@cgiar.org> [aut, cre]",
+   "International Potato Center [cph]"
+  ))
+Description: More about what it does (maybe more than one line)
+License: MIT + file LICENSE
+Depends: R (>= 3.1.2)
