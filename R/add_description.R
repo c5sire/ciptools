@@ -10,33 +10,17 @@ adjust_author <- function(pkg = ".") {
 
 adjust_readme <- function(title, description, pkg = ".") {
   if (file.exists("README.Rmd")) {
-    message("README.Rmd exists already.\nConsider deleting to start from scratch!")
+    message("README.Rmd exists already.\nConsider deleting and consolidating to start from scratch!")
     return()
   }
   devtools::use_readme_rmd()
-  fp <- file.path(pkg, "README.Rmd")
-  fs <- file.info(fp)[["size"]]
-  ch <- readChar(fp, fs)
-  package <- basename(normalizePath(pkg))
-  td <- paste0("-->\n\n# ", paste0(package, ": ", title), "\n\n", description)
-  ch <- stringr::str_replace(ch, "-->", td)
-#  
-# Add continuous integration and testing banners
-  travis <- "[![Travis-CI Build Status](https://travis-ci.org/{{github_user}}/{{package}}.png?branch=master)](https://travis-ci.org/{{github_user}}/{{package}})"
-  appveyor <- "[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/{{github_user}}/{{package}}?branch=master)](https://ci.appveyor.com/project/{{github_user}}/{{package}})"
-  covrall <- "[![Coverage Status](https://img.shields.io/coveralls/{{github_user}}/{{package}}.svg)](https://coveralls.io/r/{{github_user}}/{{package}}?branch=master)"
-  tpl <- paste(travis, appveyor, covrall)
-  tpl <- paste0(tpl, "\n\n")
+  package <- get_pkg_name(pkg)
   github_user <- get_git_user()
-  package <- basename(getwd())
-  
-  txt <- whisker::whisker.render(tpl)
-  
-  td <- paste0(txt, "\n\n<!--")
-  ch <- stringr::str_replace(ch, "<!--", td)
-  
-  nc <- nchar(ch)
-  writeChar(ch, fp, nc, eos = NULL)
+  use_template("README.Rmd", dest = "README.Rmd", 
+               package = package, 
+               title = title, 
+               description = description, 
+               github_user = github_user)
 }
 
 to_author <- function(persons) {
@@ -155,14 +139,14 @@ new_description <- function(
     txt <- whisker::whisker.render(tpl)
     writeChar(txt, "LICENSE", nchars = nchar(txt), eos = NULL)
   }
-  replace_description("Copyright", paste0(copyright, " (", ayear, ")"))
+  #replace_description("Copyright", paste0(copyright, " (", ayear, ")"))
   
   
   replace_description("Authors@R", to_author(persons))
   
   txt <- paste0(persons[1]$given[1], " ", persons[1]$family, " <", persons[1]$email, ">")
   cat(txt)
-  replace_description("Maintainer", txt)
+  #replace_description("Maintainer", txt)
   
   replace_description("Date", format(Sys.time(), "%Y-%m-%d"))
   
@@ -183,6 +167,8 @@ new_description <- function(
     add_description("BugReports", txt)
     adjust_readme(title, description, adir)
   }
+  use_template("NEWS.md")
+  devtools::use_build_ignore("NEWS.md")
 }
 
 #' format_code
@@ -215,6 +201,7 @@ add_tests <- function(pkg = ".") {
     use_inst(pkg)
     dest <- file.path(pkg, "R", "hello.R")
     file.copy(system.file("templates/hello.R", package = "ciptools"), dest, overwrite = TRUE)
+    file.copy(system.file("templates/hello_world.R", package = "ciptools"), "R/hello_world.R", overwrite = TRUE)
     dest <- file.path(pkg, "inst", "examples", "ex_hello.R")
     file.copy(system.file("templates/ex_hello.R", package = "ciptools"), dest)
     # tests
@@ -236,12 +223,35 @@ add_tests <- function(pkg = ".") {
 #' @param description a description
 #' @author Reinhard Simon
 #' @export
-use_cip <- function(pkg = ".", persons = c(person("Reinard", "Simon", , "r.simon@cgiar.org", role = c("auth", "cre"))), 
-  title = "A Good Title", description = "A thorough description") {
+use_cip <- function(
+  pkg = ".",
+  persons = c(
+    person("Reinard", "Simon", , "r.simon@cgiar.org", 
+      role = c("aut", "cre"))
+    
+  ), 
+  title = "A Good Title",
+  description = "A thorough description") {
   # try(devtools::create(pkg))
+  persons = c(persons, person("International Potato Center", "(CIP)", 
+                              role = c("cph")))
   setwd(pkg)
-  pkg <- basename(pkg)
-  new_description(pkg, title = title, description = description, persons = persons)
+  package <- get_pkg_name(pkg)
+  if(!file.exists("DESCRIPTION")){
+    use_template("tpl_DESCRIPTION", dest = "DESCRIPTION", package=package)#, 
+#                  package = pkg, 
+#                  title = title, 
+#                  description = description, 
+#                  github_user = github_user
+  }
+  if(!file.exists("R")){
+    dir.create("R")
+  }
+  if(!file.exists(".Rbuildignore")){
+    use_template("Rbuildignore", ".Rbuildignore")
+  }
+
+  new_description(".", title = title, description = description, persons = persons)
   add_tests(pkg = pkg)
   first_commit(pkg)
 }

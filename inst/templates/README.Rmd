@@ -1,0 +1,27 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+[![Travis-CI Build Status](https://travis-ci.org/{{github_user}}/{{package}}.png?branch=master)](https://travis-ci.org/{{github_user}}/{{package}})
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/{{github_user}}/{{package}}?branch=master)](https://ci.appveyor.com/project/{{github_user}}/{{package}})
+[![Coverage Status](https://img.shields.io/coveralls/{{github_user}}/{{package}}.svg)](https://coveralls.io/r/{{github_user}}/{{package}}?branch=master)
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# {{package}}: {{title}}
+
+{{description}}
+
+A README file is meant for new users of your package. Please include a short example of how this package works using knitr! More detailed tutorials should be added as 
+vignettes. The NEWS.md file is meant for prior users and should contain a progressive
+list of changes (new features, bug fixes, deprecated features, etc.)
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```

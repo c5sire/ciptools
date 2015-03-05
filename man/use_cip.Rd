@@ -5,7 +5,7 @@
 \title{use_cip}
 \usage{
 use_cip(pkg = ".", persons = c(person("Reinard", "Simon", ,
-  "r.simon@cgiar.org", role = c("auth", "cre"))), title = "A Good Title",
+  "r.simon@cgiar.org", role = c("aut", "cre"))), title = "A Good Title",
   description = "A thorough description")
 }
 \arguments{

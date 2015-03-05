@@ -67,10 +67,13 @@ update_git <- function(pkg = ".") {
 #' @export
 first_commit <- function(pkg = ".", msg = "Initial commit.") {
   try(knitr::knit("README.Rmd"))
-  txt <- readLines("README.md")
-  txt <- paste(txt, collapse = "\n")
-  txt <- stringr::str_replace(txt, "---(.*?)---", "")
-  writeLines(txt, "README.md", sep = "")
+  try(devtools::in_dir("vignettes",
+    knitr::knit("tutorial.Rmd")
+    ))
+#   txt <- readLines("README.md")
+#   txt <- paste(txt, collapse = "\n")
+#   txt <- stringr::str_replace(txt, "---(.*?)---", "")
+#   writeLines(txt, "README.md", sep = "")
   try(roxygen2::roxygenise(pkg))
   do_git("git add -A", pkg)
   do_git(paste0("git commit -m \"", msg, "\""), pkg)
