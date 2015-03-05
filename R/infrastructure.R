@@ -31,7 +31,7 @@ use_coveralls <- function(pkg = ".") {
                     after = install_loc)
   after_failure_loc <- grep("^after_failure:$", travis_content)
   travis_content <- append(travis_content, c("after_success:", 
-                                             " - Rscript -e 'library(covr);coveralls()'\n"), 
+                                             "  - Rscript -e 'library(covr);coveralls()'\n"), 
                            after = after_failure_loc - 1)
   writeLines(travis_content, file.path(pkg$path, ".travis.yml"))
 }
