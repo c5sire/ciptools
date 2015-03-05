@@ -8,7 +8,6 @@ adjust_author <- function(pkg = ".") {
   }
 }
 
-
 adjust_readme <- function(title, description, pkg = ".") {
   if (file.exists("README.Rmd")) {
     message("README.Rmd exists already.\nConsider deleting to start from scratch!")
@@ -18,13 +17,11 @@ adjust_readme <- function(title, description, pkg = ".") {
   fp <- file.path(pkg, "README.Rmd")
   fs <- file.info(fp)[["size"]]
   ch <- readChar(fp, fs)
-  
   package <- basename(normalizePath(pkg))
-  
   td <- paste0("-->\n\n# ", paste0(package, ": ", title), "\n\n", description)
   ch <- stringr::str_replace(ch, "-->", td)
-  
-  # Add continuous integration and testing banners
+#  
+# Add continuous integration and testing banners
   travis <- "[![Travis-CI Build Status](https://travis-ci.org/{{github_user}}/{{package}}.png?branch=master)](https://travis-ci.org/{{github_user}}/{{package}})"
   appveyor <- "[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/{{github_user}}/{{package}}?branch=master)](https://ci.appveyor.com/project/{{github_user}}/{{package}})"
   covrall <- "[![Coverage Status](https://img.shields.io/coveralls/{{github_user}}/{{package}}.svg)](https://coveralls.io/r/{{github_user}}/{{package}}?branch=master)"
@@ -117,17 +114,15 @@ adjust_package_desc <- function(pkg, title, description) {
   tpl <- readChar(system.file("templates/package.R", package = "ciptools"), nchars = 200)
   txt <- whisker::whisker.render(tpl)
   txt <- stringr::str_replace_all(txt, "\\n", "")
-  # print(str(txt)) print(txt)
-  
-  
+# print(str(txt)) print(txt)
   cat(paste(txt, collapste = ""), file = out, fill = TRUE)
 }
 
 
 #' new_description
-#' 
+#'
 #' Adds a description file in CIP format
-#' 
+#'
 #' @param adir a directory
 #' @param title for DESCRIPTION and README files
 #' @param description for DESCRIPTION and README files
@@ -137,8 +132,14 @@ adjust_package_desc <- function(pkg, title, description) {
 #' @return logical success
 #' @author Reinhard Simon
 #' @export
-new_description <- function(adir = ".", title = "My Productivity Tool (Use Title Case)", description = "Be a bit more specific!", 
-  persons = c(person("First", "Last", "M", "first.last@email.com", role = c("aut", "cre"))), copyright = "International Potato Center", 
+new_description <- function(
+  adir = ".", 
+  title = "My Productivity Tool (Use Title Case)", 
+  description = "Be a bit more specific!", 
+  persons = c(
+    person("First", "Last", "M", "first.last@email.com", 
+      role = c("aut", "cre"))), 
+  copyright = "International Potato Center", 
   license = "MIT + file LICENSE") {
   # x <- devtools::create_description(adir, extra=list('Version: 0.0.1.9000'))
   ayear <- format(Sys.time(), "%Y")

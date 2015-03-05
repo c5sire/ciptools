@@ -1,4 +1,4 @@
 library(testthat)
 library(ciptools)
 
-test_check("ciptools") 
+test_check("ciptools")
