@@ -11,7 +11,7 @@ do_knit <- function(afile, adir) {
 #' Takes special care of vignettes
 #' 
 #' @author Reinhard Simon
-#' @family
+#' @family convenience
 #' @export
 build <- function(){
   # build vignettes
@@ -22,7 +22,7 @@ build <- function(){
   if(!file.exists("inst/doc")) {
     dir.create("inst/doc")
   }
-  file.copy(fls_lst, file.path("inst", "doc"), over = TRUE, rec = TRUE)
+  file.copy(fls_lst, file.path("inst", "doc"), overwrite = TRUE, recursive = TRUE)
 
   # devtools build
   devtools::build()

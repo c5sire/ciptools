@@ -4,7 +4,7 @@
 #' 
 #' @param aname a name
 #' @author Reinhard Simon
-#' @family
+#' @family convenience
 #' @export
 add_function <- function(aname){
   

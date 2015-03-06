@@ -11,6 +11,6 @@ Description: More about what it does (maybe more than one line)
 License: MIT + file LICENSE
 Copyright: International Potato Center (2015)
 Depends: R (>= 3.1.2)
-Imports: formatR,  stringr, devtools, whisker, roxygen2, knitr
+Imports: formatR,  stringr, devtools, whisker, roxygen2, knitr, rmarkdown
 Suggests: testthat
 VignetteBuilder: knitr
