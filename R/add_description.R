@@ -259,6 +259,7 @@ use_cip <- function(
 
   new_description(".", title = title, description = description, persons = persons)
   add_tests(pkg = pkg)
+  build()
   first_commit(pkg)
 }
 
