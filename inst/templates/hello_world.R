@@ -10,4 +10,4 @@
 #' @export
 hello_world <- function() {
   hello()
-}
+} 

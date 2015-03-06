@@ -4,10 +4,10 @@
 \alias{add_function}
 \title{add_function}
 \usage{
-add_function(aname)
+add_function(title)
 }
 \arguments{
-\item{aname}{a name}
+\item{title}{a name for the function}
 }
 \description{
 Adds a new user visible function

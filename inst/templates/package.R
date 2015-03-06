@@ -6,4 +6,4 @@
 #'
 #' @name {{package}}-package
 #' @docType package
-NULL
+NULL 

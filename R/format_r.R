@@ -1,11 +1,4 @@
-# format_r
-# 
-# formats R code
-# 
-# @param adir a directory
-# @return boolean true or false
-# export
-# @author Reinhard Simon
+# format_r formats R code @param adir a directory @return boolean true or false export @author Reinhard Simon
 format_r <- function(adir = ".") {
   if (has_r(adir)) {
     ff <- file.path(adir, "R", list.files("R"))

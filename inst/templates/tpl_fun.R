@@ -1,14 +1,20 @@
-#' hello
+#' {{title}}
 #'
-#' The typical hello world example.
+#' A one liner.
+#' 
+#' Here more details
 #'
 #' @param name a name; default is 'world'
 #' @return character a string; default is 'Hello, world!'
-#' @author Reinhard Simon
+#' @author author
 #' @family example
-#' @example inst/examples/ex_hello.R
+#' @example inst/examples/ex_{{title}}.R
 #' @export
-hello <- function(name = "world") {
+{
+  {
+    title
+  }
+} <- function(name = "world") {
   stopifnot(is.character(name))
   paste0("Hello, ", name, "!")
 } 

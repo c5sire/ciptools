@@ -22,25 +22,15 @@ get_git_user <- function() {
 add_github <- function() {
   remote_list <- do_git("git remote -v")
   if (length(remote_list) > 0 & stringr::str_detect(remote_list[1], "origin")) {
-    message("This package has already remote site(s) registered.\n
-            Use git command line tools to manage details.")
+    message("This package has already remote site(s) registered.\n\n            Use git command line tools to manage details.")
     return(remote_list)
   }
   template <- "git remote add origin https://github.com/{{user}}/{{package}}.git"
-  cmd <- whisker::whisker.render(template,
-                                 list(user = get_git_user(),
-                                      package = basename(getwd()))
-                                 )
+  cmd <- whisker::whisker.render(template, list(user = get_git_user(), package = basename(getwd())))
   do_git(cmd)
 }
 
-# Initiate local git repository
-# 
-# Executes git init
-# 
-# @param path to package
-# @author Reinhard Simon
-# export
+# Initiate local git repository Executes git init @param path to package @author Reinhard Simon export
 add_git <- function(path = ".") {
   do_git("git init", path)
 }
@@ -67,17 +57,11 @@ update_git <- function(pkg = ".") {
 #' @export
 first_commit <- function(pkg = ".", msg = "Initial commit.") {
   try(knitr::knit("README.Rmd"))
-  try(devtools::in_dir("vignettes",
-    knitr::knit("tutorial.Rmd", "tutorial.html")
-    ))
-#   txt <- readLines("README.md")
-#   txt <- paste(txt, collapse = "\n")
-#   txt <- stringr::str_replace(txt, "---(.*?)---", "")
-#   writeLines(txt, "README.md", sep = "")
+  try(devtools::in_dir("vignettes", knitr::knit("tutorial.Rmd", "tutorial.html")))
+  # txt <- readLines('README.md') txt <- paste(txt, collapse = '\n') txt <- stringr::str_replace(txt, '---(.*?)---', '')
+  # writeLines(txt, 'README.md', sep = '')
   try(roxygen2::roxygenise(pkg))
   do_git("git add -A", pkg)
   do_git(paste0("git commit -m \"", msg, "\""), pkg)
-  # Check if internet connection 
-  # Check if github repository exists
-  # do_git('git push -u origin master', pkg, quiet=FALSE)
-}
+  # Check if internet connection Check if github repository exists do_git('git push -u origin master', pkg, quiet=FALSE)
+} 
