@@ -10,11 +10,7 @@
 #' @family example
 #' @example inst/examples/ex_{{title}}.R
 #' @export
-{
-  {
-    title
-  }
-} <- function(name = "world") {
+{{title}} <- function(name = "world") {
   stopifnot(is.character(name))
   paste0("Hello, ", name, "!")
 } 
