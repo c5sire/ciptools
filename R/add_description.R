@@ -99,7 +99,7 @@ adjust_package_desc <- function(pkg, title, description) {
   }
   tpl <- readChar(system.file("templates/package.R", package = "ciptools"), nchars = 200)
   txt <- whisker::whisker.render(tpl)
-  txt <- stringr::str_replace_all(txt, "\\n", "")
+  #txt <- stringr::str_replace_all(txt, "\\n", "")
 # print(str(txt)) print(txt)
   cat(paste(txt, collapste = ""), file = out, fill = TRUE)
 }
@@ -251,9 +251,14 @@ use_cip <- function(
 #                  title = title, 
 #                  description = description, 
 #                  github_user = github_user
+  } else {
+    message("Ignored: Existing DESCRIPTION file.")
   }
   if(!file.exists("R")){
     dir.create("R")
+  }
+  else {
+    message("Ignored: Existing R directory.")
   }
   if(!file.exists(".Rbuildignore")){
     use_template("Rbuildignore", ".Rbuildignore")

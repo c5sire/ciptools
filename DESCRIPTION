@@ -6,8 +6,7 @@ Date: 2015-01-29
 Authors@R: as.person(c(
    "Reinhard Simon <r.simon@cgiar.org> [aut, cre]"
   ))
-Maintainer: Reinhard Simon <R.SIMON@CGIAR.ORG>
-Description: More about what it does (maybe more than one line)
+Description: Convenience functions for package development at CIP.
 License: MIT + file LICENSE
 Copyright: International Potato Center (2015)
 Depends: R (>= 3.1.2)

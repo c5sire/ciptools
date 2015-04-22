@@ -1,9 +1,5 @@
-#' {{package}}-package
-#'
-#' {{title}}
-#'
-#' {{description}}
-#'
 #' @name {{package}}-package
+#' @title {{title}}
+#' @description {{description}}
 #' @docType package
 NULL 
