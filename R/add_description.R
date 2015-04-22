@@ -15,7 +15,8 @@ adjust_readme <- function(title, description, pkg = ".") {
   }
   devtools::use_readme_rmd()
   package <- get_pkg_name(pkg)
-  github_user <- get_git_user()
+  gh <- github_info(pkg)
+  github_user <- gh$username
   use_template("README.Rmd", dest = "README.Rmd", 
                package = package, 
                title = title, 
@@ -156,7 +157,8 @@ new_description <- function(
   adjust_package_desc(adir, title, description)
   
   update_git()  # also adds support for continuous integration and testing
-  github_user <- get_git_user()
+  gh <- github_info()
+  github_user <- gh$username
   if (!is.null(github_user)) {
     packageName <- basename(getwd())
     tpl <- "http://github.com/{{github_user}}/{{packageName}}"
@@ -237,7 +239,7 @@ use_cip <- function(
     
   ), 
   title = "A Good Title",
-  description = "A thorough description") {
+  description = "A thorough description.") {
   # try(devtools::create(pkg))
   persons = c(persons, person("International Potato Center", "(CIP)", 
                               role = c("cph")))
