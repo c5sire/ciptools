@@ -239,7 +239,7 @@ use_cip <- function(
     
   ), 
   title = "A Good Title",
-  description = "A thorough description") {
+  description = "A thorough description.") {
   # try(devtools::create(pkg))
   persons = c(persons, person("International Potato Center", "(CIP)", 
                               role = c("cph")))
