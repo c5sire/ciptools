@@ -4,23 +4,19 @@ author: "Reinhard Simon"
 date: "September 25, 2015"
 output: pdf_document
 ---
-
 # Scope
-
 These principles and practices are primarily intended to be applied to scientific software developed at CIP.
 
 # Objective
-
 1. Provide open access high quality software
 
 # Guiding principles
-
 1. Maximize cohesion (one function per task)
-2. Maximize access to code base
-3. Mazimize understandability
-4. Maximize access
-5. Maximize reproducability
-z`
+2. Minimize coupling (number of parameters)
+3. Minimize routine size
+4. Maximize modularity
+5. Maximize testability
+
 # Best practices
 1. Open source
 2. Release versions of source code corresponding to released software on public code repository
@@ -40,8 +36,5 @@ z`
 5. Publication in journals which include code review
 
 # Resources
+[https://en.wikipedia.org/wiki/ISO/IEC_12207] Sections on Coding, Module testing and Integration testing.
 [http://www.literateprogramming.com/sdg.pdf]
-
-
-
-
