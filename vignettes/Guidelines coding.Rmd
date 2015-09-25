@@ -1,0 +1,47 @@
+---
+title: "Guidelines scientific software development (draft)"
+author: "Reinhard Simon"
+date: "September 25, 2015"
+output: pdf_document
+---
+
+# Scope
+
+These principles and practices are primarily intended to be applied to scientific software developed at CIP.
+
+# Objective
+
+1. Provide open access high quality software
+
+# Guiding principles
+
+1. Maximize cohesion (one function per task)
+2. Maximize access to code base
+3. Mazimize understandability
+4. Maximize access
+5. Maximize reproducability
+z`
+# Best practices
+1. Open source
+2. Release versions of source code corresponding to released software on public code repository
+3. Code and comments in English
+4. Adopt/establish a style guide for code
+5. Accompanied by test data and automated tests
+6. Accompanied by technical documents for developers and users
+7. Accompanied or followed by peer reviewed publication
+8. Consider pair programming
+9. Consider internal peer code review
+
+# Preferred tools
+1. Use of a source code management (SCM) tool: git over svn
+2. Use of a source code repository: github over sourceforge
+3. Use of unit test frameworks or equivalents
+4. Use of automated execution tools for testing and building
+5. Publication in journals which include code review
+
+# Resources
+[http://www.literateprogramming.com/sdg.pdf]
+
+
+
+
